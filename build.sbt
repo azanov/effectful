@@ -2,31 +2,25 @@ name := "effectful"
 
 description := "A syntax for type-safe effectful computations in Scala"
 
-version := "1.1-SNAPSHOT"
+version := "1.2-SNAPSHOT"
 
 organization := "org.pelotom"
 
 startYear := Some(2013)
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.12.1"
 
-libraryDependencies <++= (scalaVersion) { sv => Seq("org.scala-lang" % "scala-reflect" % sv) }
+libraryDependencies ++= ((scalaVersion) { sv => Seq("org.scala-lang" % "scala-reflect" % sv) }).value
 
-libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.1.2"
+// libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.1.2"
+libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.27"
 
-libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
+// libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
+libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.0"
 
 scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-Xfatal-warnings")
 
 scalacOptions ++= Seq("-language:higherKinds", "-language:postfixOps")
-
-publishTo <<= version { v: String =>
-  val nexus = "https://oss.sonatype.org/"
-  if (v.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
 
 publishMavenStyle := true
 
